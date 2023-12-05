@@ -1,0 +1,15 @@
+
+
+npm i -g nodemon
+npm i express body-parser bcrypt cors dotenv gridfs-stream multer multer-gridfs-storage helmet morgan jsonwebtoken mongoose
+npm init -y
+
+add in package.json: after "main": "index.js",
+"type": "module",
+
+https://youtu.be/K8YELRmUb5o?t=916
+
+setting mongodb and config in .env
+
+setting models
+https://youtu.be/K8YELRmUb5o?t=2145
