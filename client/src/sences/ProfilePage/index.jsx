@@ -1,12 +1,5 @@
-import React from "react";
-
 const ProfilePage = () => {
-  return (
-    <div>
-      ProfilePage
-      <Button variant="contained">Hello world</Button>
-    </div>
-  );
+  return <div>ProfilePage</div>;
 };
 
 export default ProfilePage;
