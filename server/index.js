@@ -8,7 +8,15 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { register } from "./controllers/auth.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import { register } from "./controllers/authController.js";
+import { createPost } from "./controllers/postController.js";
+import { verifyToken } from "./middleware/auth.js";
+import UserModel from "./models/UserModel.js";
+import PostModel from "./models/PostModel.js";
+import { dummyUsers, dummyPosts } from "./data/index.js";
 // CONFIGURATION
 
 /* Các middleware được sử dụng ở đây là các thành phần trung gian giữa request và response trong ứng dụng Express. 
@@ -72,14 +80,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /**ROUTES WITH FILES */
+// app.post("/auth/register", upload.single("picture"), verifyToken, register);
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
+/**Routes */
+app.use("/auth", authRoutes);
+app.use("/auth", userRoutes);
+app.use("/posts", postRoutes);
 //after setting port at .env
 /**MONGOOSE SETUP */
 // Đặt biến PORT là giá trị của biến môi trường PORT, nếu không có giá trị nào được thiết lập, sẽ sử dụng mặc định là 6001.
 const PORT = process.env.PORT || 6001;
 mongoose
-  // ết nối đến cơ sở dữ liệu MongoDB bằng cách sử dụng mongoose. process.env.MONGO_URL là URL của cơ sở dữ liệu MongoDB được đặt trong biến môi trường.
+  // kết nối đến cơ sở dữ liệu MongoDB bằng cách sử dụng mongoose. process.env.MONGO_URL là URL của cơ sở dữ liệu MongoDB được đặt trong biến môi trường.
   .connect(process.env.MONGO_URL, {
     //Các tùy chọn cấu hình cho việc kết nối đến MongoDB. useNewUrlParser giúp mongoose sử dụng URL parser mới,
     //và useUnifiedTopology sử dụng topology engine mới, giúp tránh cảnh báo từ phiên bản MongoDB mới.
@@ -90,5 +104,9 @@ mongoose
   .then(() => {
     // Bắt đầu lắng nghe trên cổng đã đặt, và in ra thông báo khi máy chủ đã khởi động.
     app.listen(PORT, () => console.log(`Server port ${PORT}`));
+
+    /**ADD DUMMY DATA ONE TIME */
+    // UserModel.insertMany(dummyUsers);
+    // PostModel.insertMany(dummyPosts);
   })
   .catch((error) => console.log(`${error} did not connect`));
