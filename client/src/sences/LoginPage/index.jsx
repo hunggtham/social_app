@@ -1,11 +1,15 @@
 import { Button } from "@mui/material";
+import { NavBar } from "../navBar/NavBar";
 
 const LoginPage = () => {
   return (
-    <div>
-      LoginPage
-      <Button variant="contained">Hello world123</Button>
-    </div>
+    <>
+      <NavBar />
+      <div>
+        LoginPage
+        <Button variant="contained">Hello world123</Button>
+      </div>
+    </>
   );
 };
 
