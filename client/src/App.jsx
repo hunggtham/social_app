@@ -6,9 +6,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import LoginPage from "./sences/LoginPage";
-import Homepage from "./sences/HomePage";
 import ProfilePage from "./sences/ProfilePage";
-import NavBar from "./sences/navBar/NavBar";
+import HomePage from "./sences/homePage";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -21,7 +20,7 @@ function App() {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<Homepage />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Routes>
         </ThemeProvider>
