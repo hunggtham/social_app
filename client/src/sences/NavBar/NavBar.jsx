@@ -8,6 +8,7 @@ import {
   //   LightMode,
   // NotificationsIcon,
   Help,
+  Close,
 } from "@mui/icons-material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import FlexBetween from "../../components/FlexBetween";
@@ -136,7 +137,63 @@ export const NavBar = () => {
           maxWidth="500px"
           maxHeight="300px"
           backgroundColor={background}
-        ></Box>
+        >
+          <Box dislay="flex" justifyContent="flex-end" p="1rem">
+            <IconButton
+              onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+            >
+              <Close />
+            </IconButton>
+          </Box>
+
+          {/* menu item: same with above*/}
+          <FlexBetween
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            gap="1rem"
+          >
+            <IconButton onClick={() => dispath(setMode())}>
+              {theme.palette.mode === "dark" ? (
+                <DarkMode sx={{ fontSize: "25px" }} />
+              ) : (
+                <LightMode sx={{ color: dark, fontSize: "25px" }} />
+              )}
+            </IconButton>
+            <Message sx={{ fontSize: "25px" }} />
+            <NotificationsIcon sx={{ fontSize: "25px" }} />
+            <Help sx={{ fontSize: "25px" }} />
+            {/* <FormControl variant="standard" value={fullName}> */}
+            <FormControl variant="standard" value="222">
+              <Select
+                value="111"
+                // value={fullName}
+                sx={{
+                  backgroundColor: neutralLight,
+                  width: "150px",
+                  borderRadius: "0.25rem",
+                  p: "0.25rem 1rem",
+                  "& .MuiSngIcon-root": {
+                    pr: "0.25rem",
+                    width: "3rem",
+                  },
+                  "& .MuiSelect-selection:focus": {
+                    backgroundColor: neutralLight,
+                  },
+                }}
+                input={<InputBase />}
+              >
+                {/* <MenuItem value={fullName}>
+                      <Typography>{fullName}</Typography> */}
+                <MenuItem value="UserNameTest">
+                  <Typography>UserNameTest</Typography>
+                </MenuItem>
+                <MenuItem onClick={() => dispath(setLogout)}>Log Out</MenuItem>
+              </Select>
+            </FormControl>
+          </FlexBetween>
+        </Box>
       )}
     </FlexBetween>
   );
