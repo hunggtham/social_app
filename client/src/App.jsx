@@ -8,6 +8,7 @@ import { themeSettings } from "./theme";
 import LoginPage from "./sences/LoginPage";
 import Homepage from "./sences/HomePage";
 import ProfilePage from "./sences/ProfilePage";
+import NavBar from "./sences/navBar/NavBar";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <NavBar />
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/home" element={<Homepage />} />
